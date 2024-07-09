@@ -6,7 +6,8 @@ import {
   HierarchicalTree,
   Inject,
   NodeModel,
-  ConnectorModel
+  ConnectorModel,
+  SnapConstraints 
 } from "@syncfusion/ej2-react-diagrams";
 import {DataManager} from "@syncfusion/ej2-data";
 function App() {
@@ -142,40 +143,40 @@ function App() {
     margin:{top:20},
     horizontalSpacing:25,
     verticalSpacing:30,
-    horizontalAlignment:"Left",
+    horizontalAlignment:"Center",
     verticalAlignment:"Center"
   }
   const defaultNodeSetting = (defaultNode:NodeModel) =>{
     defaultNode.shape = {
       type : "Text",
-      content:(defaultNode.data as {Role:"string"}).Role,
+      content : (defaultNode.data as {Role : "String"}).Role
     }
     defaultNode.style = {
-      fill:"None",
-      strokeColor:"None",
+      fill: "None",
+      strokeColor: "None",
       bold:true,
       color:"white"
     }
     defaultNode.backgroundColor = "#6BA5D7";
     defaultNode.width = 90;
     defaultNode.height = 60;
-    defaultNode.margin= {
+    defaultNode.margin = {
       left : 5,
-      right:5,
-      top:5,
-      bottom:5
+      right : 5,
+      top : 5,
+      bottom : 5
     }
     return defaultNode;
   }
   const defaultConnectorSetting = (defaultConnector:ConnectorModel) =>{
     defaultConnector.style = {
-      strokeWidth:2,
-      strokeColor:"#6BA5D7"
+      strokeWidth : 2,
+      strokeColor : "#6BA5D7"
     }
     if(defaultConnector.targetDecorator?.style){
-      defaultConnector.targetDecorator.style={
-        fill:"#6BA5D7",
-        strokeColor:"#6BA5D7"
+      defaultConnector.targetDecorator.style = {
+        fill : "#6BA5D7",
+        strokeColor : "#6BA5D7"
       }
     }
     defaultConnector.type = "Orthogonal";
@@ -189,8 +190,9 @@ function App() {
         height={"750px"}
         dataSourceSettings={dataSource}
         layout={diagramLayout}
-        getConnectorDefaults={defaultConnectorSetting}
         getNodeDefaults={defaultNodeSetting}
+        getConnectorDefaults={defaultConnectorSetting}
+        snapSettings={{constraints:SnapConstraints.None}}
       >
         <Inject services = {[DataBinding, HierarchicalTree]}/>
       </DiagramComponent>
