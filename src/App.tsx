@@ -6,8 +6,7 @@ import {
   HierarchicalTree,
   Inject,
   NodeModel,
-  ConnectorModel,
-  SnapConstraints 
+  ConnectorModel
 } from "@syncfusion/ej2-react-diagrams";
 import {DataManager} from "@syncfusion/ej2-data";
 function App() {
@@ -132,55 +131,51 @@ function App() {
       Team: "17",
     },
   ]
-  const remoteData : DataManager = new DataManager(diagramItems as JSON[]);
+  const data :DataManager = new DataManager(diagramItems as JSON[]);
   const dataSource : DataSourceModel = {
-    id:"Id",
-    parentId:"Team",
-    dataManager :remoteData
+    id : "Id",
+    parentId : "Team",
+    dataManager : data
   }
   const diagramLayout : LayoutModel = {
-    type:"OrganizationalChart",
-    margin:{top:20},
-    horizontalSpacing:25,
-    verticalSpacing:30,
-    horizontalAlignment:"Center",
-    verticalAlignment:"Center"
+    type : "OrganizationalChart",
+    margin : {top : 20},
+    horizontalSpacing : 50,
+    verticalSpacing : 50,
+    horizontalAlignment : "Center",
+    verticalAlignment : "Center"
   }
-  const defaultNodeSetting = (defaultNode:NodeModel) =>{
-    defaultNode.shape = {
-      type : "Text",
-      content : (defaultNode.data as {Role : "String"}).Role
+  const defaultNodeSetting = (obj : NodeModel) =>{
+    obj.annotations = [{style:{color:"white"}, content :(
+      obj.data as {Role:"String"}).Role
+    }];
+    obj.style = {
+      fill : "#6BA5D7",
+      strokeColor : "None",
     }
-    defaultNode.style = {
-      fill: "None",
-      strokeColor: "None",
-      bold:true,
-      color:"white"
+    obj.width = 70;
+    obj.height = 50;
+    obj.margin = {
+      top:5,
+      bottom:5,
+      left:5,
+      right:5
     }
-    defaultNode.backgroundColor = "#6BA5D7";
-    defaultNode.width = 90;
-    defaultNode.height = 60;
-    defaultNode.margin = {
-      left : 5,
-      right : 5,
-      top : 5,
-      bottom : 5
-    }
-    return defaultNode;
+    return obj;
   }
-  const defaultConnectorSetting = (defaultConnector:ConnectorModel) =>{
-    defaultConnector.style = {
-      strokeWidth : 2,
-      strokeColor : "#6BA5D7"
+  const defaultConnectorSetting = (obj : ConnectorModel) =>{
+    obj.style = {
+      strokeWidth :2,
+      strokeColor:"#6BA5D7"
     }
-    if(defaultConnector.targetDecorator?.style){
-      defaultConnector.targetDecorator.style = {
+    if(obj.targetDecorator?.style){
+      obj.targetDecorator.style = {
         fill : "#6BA5D7",
-        strokeColor : "#6BA5D7"
+        strokeColor: "#6BA5D7"
       }
     }
-    defaultConnector.type = "Orthogonal";
-    return defaultConnector;
+    obj.type = "Orthogonal"
+    return obj;
   }
   return (
     <div>
@@ -192,9 +187,8 @@ function App() {
         layout={diagramLayout}
         getNodeDefaults={defaultNodeSetting}
         getConnectorDefaults={defaultConnectorSetting}
-        snapSettings={{constraints:SnapConstraints.None}}
       >
-        <Inject services = {[DataBinding, HierarchicalTree]}/>
+      <Inject services={[DataBinding, HierarchicalTree]}/>
       </DiagramComponent>
     </div>
   );
