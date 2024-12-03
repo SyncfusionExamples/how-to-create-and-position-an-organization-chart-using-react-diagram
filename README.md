@@ -1,5 +1,5 @@
 # How to create and position an Organization chart using React Diagram
-A simple React Application on how to use the Data Manager interface and import data into the Syncfusion Diagram Component and automatically arrange the nodes using the organizational layout.
+A simple React Application on how to use the Data Manager interface and import data into the Syncfusion&reg; Diagram Component and automatically arrange the nodes using the organizational layout.
    
 Refer to the following documentation to learn about the React Diagram Component: 
 [https://ej2.syncfusion.com/react/documentation/diagram/getting-started#dependencies](https://ej2.syncfusion.com/react/documentation/diagram/automatic-layout)
